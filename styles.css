@@ -1,0 +1,27 @@
+.row-0 {
+  border-bottom: solid black 1px;
+}
+
+.row-2 {
+  border-top: solid black 1px;
+}
+
+.col-0 {
+  border-right: solid black 1px;
+}
+
+.col-2 {
+  border-left: solid black 1px;
+}
+
+.box {
+  height: 100px;
+  width: 100px;
+  display: inline-block;
+  box-sizing: border-box;  
+}
+
+.row {
+  width: 320px;
+  height: 100px;
+}
