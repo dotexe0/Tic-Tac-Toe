@@ -29,14 +29,15 @@ html {
 }
 
 .row {
-  width: 360px;
+  width: 320px;
   height: 100px;
 }
 
 .player {
   text-align: center;
-  bottom: 50px;
-  position: relative;
+  margin-left: 40px;
+  margin-top: 40px;
+  position: absolute;
 }
 
 /*h2 {
