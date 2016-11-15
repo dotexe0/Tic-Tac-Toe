@@ -3,10 +3,6 @@ $(document).ready(function() {
   var X = "X";
   var O = "O";
   var togglePlayer = X;
-  var previouslySelected = {
-    X:[],
-    O:[]
-  };
 
   var board = new Array(3);
   board[0] = new Array(3);
@@ -21,58 +17,62 @@ $(document).ready(function() {
     }
   };
 
-  function hasBeenClicked() {
-  //   if (($(this).find('.player')[0])) {
-  //     alert("THIS BOX HAS BEEN SELECTED! PICK ANOTHER BOX");
-  //   } else {
-  //     $(this).append("<h2 class='player'>" + togglePlayer + "</h2>");
-  //     console.log($(this).find('.player')[0].innerText);
-  //      counter += 1;
-  //     }
-  };
+  function checkWinner(){
+    for (let i = 0; i <= 2; i++) {
+        if (board[i][0] == board[i][1] &&
+            board[i][1] == board[i][2] &&
+            board[i][0] !== undefined) {
+              $('body').append("<h1 class='winner'>" + togglePlayer + " is the winner on row " + i + "</h1>");
+              return true;
+          };
 
-  function checkColWinner(){
-    // var x = 0;
-    // var o = 0;
-    // for (let col = 0; col < 3; col++) {
-    //   for(let row = 0; row < 3; row++) {
-    //     console.log($('.col' + col));
-    //
-    //     if ($('.col' + col).find('.player')[0]) {
-    //       console.log($('.col-' + col));
-    //     };
-    //   };
-    // };
+        if(board[0][i] == board[1][i] &&
+           board[1][i] == board[2][i] &&
+           board[0][i] !== undefined) {
+             $('body').append("<h1 class='winner'>" + togglePlayer + " is the winner on col " + i + "</h1>");
+             return true;
+         };
+      };
+      if(board[0][0] == board[1][1] &&
+         board[1][1] == board[2][2] &&
+         board[0][0] !== undefined) {
+           $('body').append("<h1 class='winner'>" + togglePlayer + " is the winner on left diag</h1>");
+           return true;
+        };
+     if(board[0][2] == board[1][1] &&
+        board[1][1] == board[2][0] &&
+        board[0][2] !== undefined) {
+          $('body').append("<h1 class='winner'>" + togglePlayer + " winner on right diag</h1>");
+          return true;
+      };
   };
 
   function isGameOver(counter) {
-    if (counter >= 9) {
-      alert("TIE! NO WINNER.");
+    if (counter >= 9 && !checkWinner()) {
+      $('body').append("<h1 class='tie'>TIE!</h1>");
+      $('.box').unbind('click');
+      return;
     }
   };
 
   $('.box').click(function() {
+
     var col = $(this).attr('class').slice(-1);
     var row = $(this).parent().attr('class').slice(-1);
     var box = [col, row];
 
     if (($(this).find('.player')[0])) { // check if box has child of class player (i.e. if its been clicked)
-      alert("THIS BOX HAS BEEN SELECTED! PICK ANOTHER BOX");
+      alert("PICK ANOTHER BOX YOU GOOF");
     } else {
       $(this).append("<h2 class='player'>" + togglePlayer + "</h2>");
-      $(this).find(".player").addClass(togglePlayer);
-      console.log(togglePlayer);
-      console.log($(this).find('.player')[0].innerText);
-      previouslySelected.X.push(box);
-      console.log(previouslySelected);
-       counter += 1;
-       toggleTurn(); // works
-       isGameOver(counter);
+      $(this).find(".player").addClass(togglePlayer); // add class X or class O to .player
+      board[row][col] = togglePlayer; //add box selected to the board data structure
+      if(checkWinner()){
+        $('.box').unbind('click');
+      };
+      counter += 1;
+      toggleTurn(); // works
+     isGameOver(counter);
     };
-    // hasBeenClicked();
-    // console.log(col);
-    // console.log(row);
-    // isWinner();
-    // checkColWinner();
   });
 });

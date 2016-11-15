@@ -5,6 +5,21 @@ html {
   margin-top: 100px;
 }
 
+.title {
+  text-align: left;
+  margin-left: 85px;
+}
+.winner {
+  text-align: left;
+  margin-left: 0px;
+  color: green;
+}
+
+.tie {
+  text-align: left;
+  margin-left: 130px;
+  color: red;
+}
 .row-0 {
   border-bottom: solid black 3px;
 }
