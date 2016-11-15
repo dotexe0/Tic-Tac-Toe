@@ -51,12 +51,19 @@ $(document).ready(function() {
     if (counter >= 9 && !checkWinner()) {
       $('body').append("<h1 class='tie'>TIE!</h1>");
       $('.box').unbind('click');
+      $('.title').append("<button type='button' name='button' class='restart'>Restart</button>");
+      document.getElementsByClassName('restart').onclick = restartGame();
       return;
     }
   };
 
-  $('.box').click(function() {
+  function restartGame(){
+    $('.restart').click(function() {
+      location.reload();
+    });
+  };
 
+  $('.box').click(function() {
     var col = $(this).attr('class').slice(-1);
     var row = $(this).parent().attr('class').slice(-1);
     var box = [col, row];
@@ -67,12 +74,16 @@ $(document).ready(function() {
       $(this).append("<h2 class='player'>" + togglePlayer + "</h2>");
       $(this).find(".player").addClass(togglePlayer); // add class X or class O to .player
       board[row][col] = togglePlayer; //add box selected to the board data structure
+
       if(checkWinner()){
         $('.box').unbind('click');
+        $('.title').append("<button onclick='restartGame()' type='button' name='button' class='restart'>Restart</button>");
+        document.getElementsByClassName('restart').onclick = restartGame();
+        return;
       };
       counter += 1;
-      toggleTurn(); // works
-     isGameOver(counter);
+      toggleTurn();
+      isGameOver(counter);
     };
   });
 });
